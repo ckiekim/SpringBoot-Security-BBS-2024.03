@@ -3,7 +3,7 @@ package com.example.security.entity;
 import java.time.LocalDate;
 
 public class SecurityUser {
-	private int sid;
+	private int suid;
 	private String uid;
 	private String pwd;
 	private String uname;
@@ -26,9 +26,9 @@ public class SecurityUser {
 		this.provider = provider;
 	}
 	
-	public SecurityUser(int sid, String uid, String pwd, String uname, String email, String provider, LocalDate regDate,
+	public SecurityUser(int suid, String uid, String pwd, String uname, String email, String provider, LocalDate regDate,
 			String role, int isDeleted, String profile, String github, String insta, String location) {
-		this.sid = sid;
+		this.suid = suid;
 		this.uid = uid;
 		this.pwd = pwd;
 		this.uname = uname;
@@ -43,11 +43,11 @@ public class SecurityUser {
 		this.location = location;
 	}
 	
-	public int getSid() {
-		return sid;
+	public int getSuid() {
+		return suid;
 	}
-	public void setSid(int sid) {
-		this.sid = sid;
+	public void setSuid(int suid) {
+		this.suid = suid;
 	}
 	public String getUid() {
 		return uid;

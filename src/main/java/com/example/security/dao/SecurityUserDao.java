@@ -11,8 +11,8 @@ import com.example.security.entity.SecurityUser;
 @Mapper
 public interface SecurityUserDao {
 
-	@Select("select * from securityUser where sid=#{sid}")
-	SecurityUser findBySid(int sid);
+	@Select("select * from securityUser where suid=#{suid}")
+	SecurityUser findBySuid(int sid);
 	
 	@Select("select * from securityUser where uid=#{uid}")
 	SecurityUser findByUid(String uid);
@@ -26,6 +26,6 @@ public interface SecurityUserDao {
 	
 	@Insert("insert into securityUser values (default, #{uid}, #{pwd}, #{uname}, #{email}, "
 			+ "#{provider}, default, default, default, #{profile}, #{github}, #{insta}, #{location})")
-	void insertSecurityUser(SecurityUser su);
+	void insertSecurityUser(SecurityUser securityUser);
 	
 }

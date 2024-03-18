@@ -6,7 +6,7 @@ import com.example.security.entity.SecurityUser;
 
 public interface SecurityUserService {
 
-	SecurityUser findBySid(int sid);
+	SecurityUser findBySuid(int suid);
 	
 	SecurityUser findByUid(String uid);
 	

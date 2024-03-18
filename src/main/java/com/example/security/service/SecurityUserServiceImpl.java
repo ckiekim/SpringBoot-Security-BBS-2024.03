@@ -13,8 +13,8 @@ public class SecurityUserServiceImpl implements SecurityUserService {
 	@Autowired private SecurityUserDao securityDao;
 	
 	@Override
-	public SecurityUser findBySid(int sid) {
-		return securityDao.findBySid(sid);
+	public SecurityUser findBySuid(int suid) {
+		return securityDao.findBySuid(suid);
 	}
 
 	@Override
