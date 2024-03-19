@@ -18,14 +18,14 @@ public class SecurityUser {
 	private String location;
 	
 	public SecurityUser() { }
-	public SecurityUser(String uid, String pwd, String uname, String email, String provider) {
+	public SecurityUser(String uid, String pwd, String uname, String email, String provider, String profile) {
 		this.uid = uid;
 		this.pwd = pwd;
 		this.uname = uname;
 		this.email = email;
 		this.provider = provider;
+		this.profile = profile;
 	}
-	
 	public SecurityUser(int suid, String uid, String pwd, String uname, String email, String provider, LocalDate regDate,
 			String role, int isDeleted, String profile, String github, String insta, String location) {
 		this.suid = suid;

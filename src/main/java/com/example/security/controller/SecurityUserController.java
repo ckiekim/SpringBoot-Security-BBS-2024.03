@@ -27,6 +27,16 @@ public class SecurityUserController {
 
 	@GetMapping("/list") 
 	public String list(Model model) {
+		return "user/list";
+	}
+	
+	@GetMapping("/login") 
+	public String loginForm() {
+		return "user/login";
+	}
+	
+	@GetMapping("/loginSuccess")
+	public String loginSuccess(HttpSession session) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		// 세션의 현재 사용자 아이디
 		String uid = authentication.getName();
@@ -36,14 +46,10 @@ public class SecurityUserController {
 		GrantedAuthority auth = iter.next();
 		String role = auth.getAuthority();
 		
-		model.addAttribute("uid", uid);
-		model.addAttribute("role", role);
-		return "user/list";
-	}
-	
-	@GetMapping("/login") 
-	public String loginForm() {
-		return "user/login";
+		System.out.println("uid=" + uid + ", role=" + role);
+		session.setAttribute("uid", uid);
+		session.setAttribute("role", role);
+		return "user/sample";
 	}
 	
 	@GetMapping("/register")
@@ -57,7 +63,7 @@ public class SecurityUserController {
 		if (secUser != null || pwd == null || !pwd.equals(pwd2))
 			return "user/register";
 		String hashedPwd = bCryptEncoder.encode(pwd);
-		secUser = new SecurityUser(uid, hashedPwd, uname, email, "ck world");
+		secUser = new SecurityUser(uid, hashedPwd, uname, email, "ck world", "profile path");
 		securityService.insertSecurityUser(secUser);
 		return "redirect:/user/login";
 	}

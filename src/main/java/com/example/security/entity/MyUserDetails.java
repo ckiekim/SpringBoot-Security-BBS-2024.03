@@ -2,19 +2,31 @@ package com.example.security.entity;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
-public class MyUserDetails implements UserDetails {
+// Spring Security가 로그인 POST 요청을 낚아채서 로그인을 진행시킴.
+// 로컬 로그인 - UserDetails 구현
+// 소셜 로그인 - OAuth2User 구현
+public class MyUserDetails implements UserDetails, OAuth2User {
 	private SecurityUser securityUser;
+	private Map<String, Object> attributes;
 	
 	public MyUserDetails() { }
-	// CK World 로그인시 사용되는 생성자
+	// CK World 로그인시 사용되는 생성자 - 스프링이 생성자 방식으로 의존성 주입
 	public MyUserDetails(SecurityUser securityUser) {
 		this.securityUser = securityUser;
 	}
+	// 소셜(OAuth2) 로그인시 사용되는 생성자 - 스프링이 생성자 방식으로 의존성 주입
+	public MyUserDetails(SecurityUser securityUser, Map<String, Object> attributes) {
+		this.securityUser = securityUser;
+		this.attributes = attributes;
+	}
 
+	// 해당 사용자의 권한을 리턴
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		Collection<GrantedAuthority> collect = new ArrayList<>();
@@ -58,5 +70,19 @@ public class MyUserDetails implements UserDetails {
 	public boolean isEnabled() {
 		return true;
 	}
+	
+	@Override
+	public Map<String, Object> getAttributes() {
+		return attributes;
+	}
+	
+	@Override
+	public String getName() {
+		return null;
+	}
 
+	public SecurityUser getSecurityUser() {
+		return securityUser;
+	}
+	
 }
