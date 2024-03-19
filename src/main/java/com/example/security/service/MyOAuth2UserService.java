@@ -43,6 +43,7 @@ public class MyOAuth2UserService extends DefaultOAuth2UserService {
 				profile = oAuth2User.getAttribute("picture");
 				securityUser = new SecurityUser(uid, hashedPwd, uname, email, provider, profile);
 				securityUserService.insertSecurityUser(securityUser);
+				securityUser = securityUserService.findByUid(uid);
 				log.info("구글 계정을 통해 회원가입이 되었습니다.");
 			}
 			break;
@@ -56,6 +57,7 @@ public class MyOAuth2UserService extends DefaultOAuth2UserService {
 				profile = oAuth2User.getAttribute("avatar_url");
 				securityUser = new SecurityUser(uid, hashedPwd, uname, email, provider, profile);
 				securityUserService.insertSecurityUser(securityUser);
+				securityUser = securityUserService.findByUid(uid);
 				log.info("깃허브 계정을 통해 회원가입이 되었습니다.");
 			}
 			break;

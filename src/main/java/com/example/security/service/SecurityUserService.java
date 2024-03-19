@@ -5,6 +5,7 @@ import java.util.List;
 import com.example.security.entity.SecurityUser;
 
 public interface SecurityUserService {
+	public static final int COUNT_PER_PAGE = 4;
 
 	SecurityUser findBySuid(int suid);
 	
@@ -14,10 +15,12 @@ public interface SecurityUserService {
 	
 	List<SecurityUser> getSecurityUserList(int page);
 	
+	int getSecurityUserCount();
+	
 	void insertSecurityUser(SecurityUser securityUser);
 	
 	void updateSecurityUser(SecurityUser securityUser);
 	
-	void deleteSecurityUser(int sid);
+	void deleteSecurityUser(String uid);
 	
 }

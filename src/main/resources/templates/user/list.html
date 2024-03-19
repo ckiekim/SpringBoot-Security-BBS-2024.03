@@ -9,12 +9,14 @@
 				url: '/sbbs/user/detail/' + uid,
 				success: function(jsonUser) {
 					let user = JSON.parse(jsonUser);
-					$('#imgSrc').attr({src: '/sbbs/file/profile/' + user.profile});
+					$('#imgSrc').attr({src: user.profile});
+					$('#suid').val(user.suid);
 					$('#uid').val(user.uid);
-					$('#uid2').val(user.uid);
 					$('#hashedPwd').val(user.pwd);
 					$('#uname').val(user.uname);
 					$('#email').val(user.email);
+					$('#provider').val(user.provider);
+					$('#role').val(user.role);
 					$('#profile').val(user.profile);
 					$('#github').val(user.github);
 					$('#insta').val(user.insta);
@@ -50,7 +52,7 @@
 							<th>이메일</th><th>등록일</th><th>역할</th>
 						</tr>
 						<tr th:each="user: ${userList}">
-							<td style="text-align: center;"><img th:src="@{/file/profile/{x}(x=${user.profile})}" class="rounded-circle" height="28"></td>
+							<td style="text-align: center;"><img th:src="${user.profile}" class="rounded-circle" height="28"></td>
 							<td><a href="#" th:onclick="uidClick([[${user.uid}]])">[[${user.uid}]]</a></td>
 							<td th:text="${user.uname}"></td>
 							<td th:text="${user.provider}"></td>

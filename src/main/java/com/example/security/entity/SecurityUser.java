@@ -26,6 +26,30 @@ public class SecurityUser {
 		this.provider = provider;
 		this.profile = profile;
 	}
+	public SecurityUser(String uid, String pwd, String uname, String email, String provider, String profile,
+			String github, String insta, String location) {
+		this.uid = uid;
+		this.pwd = pwd;
+		this.uname = uname;
+		this.email = email;
+		this.provider = provider;
+		this.profile = profile;
+		this.github = github;
+		this.insta = insta;
+		this.location = location;
+	}
+	public SecurityUser(int suid, String uid, String pwd, String uname, String email, String profile, String github,
+			String insta, String location) {
+		this.suid = suid;
+		this.uid = uid;
+		this.pwd = pwd;
+		this.uname = uname;
+		this.email = email;
+		this.profile = profile;
+		this.github = github;
+		this.insta = insta;
+		this.location = location;
+	}
 	public SecurityUser(int suid, String uid, String pwd, String uname, String email, String provider, LocalDate regDate,
 			String role, int isDeleted, String profile, String github, String insta, String location) {
 		this.suid = suid;

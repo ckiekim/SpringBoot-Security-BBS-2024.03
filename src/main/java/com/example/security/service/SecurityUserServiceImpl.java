@@ -29,8 +29,8 @@ public class SecurityUserServiceImpl implements SecurityUserService {
 
 	@Override
 	public List<SecurityUser> getSecurityUserList(int page) {
-		int count = 10;
-		int offset = (page - 1) * 10;
+		int count = COUNT_PER_PAGE;
+		int offset = (page - 1) * COUNT_PER_PAGE;
 		return securityDao.getSecurityUserList(count, offset);
 	}
 
@@ -41,14 +41,17 @@ public class SecurityUserServiceImpl implements SecurityUserService {
 
 	@Override
 	public void updateSecurityUser(SecurityUser securityUser) {
-		// TODO Auto-generated method stub
-		
+		securityDao.updateUser(securityUser);
 	}
 
 	@Override
-	public void deleteSecurityUser(int sid) {
-		// TODO Auto-generated method stub
-		
+	public void deleteSecurityUser(String uid) {
+		securityDao.deleteSecurityUser(uid);
+	}
+
+	@Override
+	public int getSecurityUserCount() {
+		return securityDao.getSecurityUserCount();
 	}
 
 }

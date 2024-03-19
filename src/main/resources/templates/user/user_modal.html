@@ -19,13 +19,13 @@
         
           <div class="modal-body">
             <form action="/sbbs/user/update" method="post" enctype="multipart/form-data">
-              <input type="hidden" name="sid" id="sid">
+              <input type="hidden" name="suid" id="suid">
               <input type="hidden" name="hashedPwd" id="hashedPwd">
               <input type="hidden" name="profile" id="profile">
               <table class="table table-borderless">
                 <tr>
                   <td style="width: 30%; text-align: center;"><label class="col-form-label">사용자 ID</label></td>
-                  <td style="width: 35%;"><input type="text" id="uid" class="form-control"></td>
+                  <td style="width: 35%;"><input type="text" name="uid" id="uid" class="form-control"></td>
                   <td style="width: 35%;" rowspan="2"><img id="imgSrc" width="100%"></td>
                 </tr>
                 <tr>
@@ -36,6 +36,11 @@
                   <td style="text-align: center;"><label class="col-form-label">패스워드</label></td>
                   <td><input type="password" name="pwd" class="form-control" placeholder="패스워드"></td>
                   <td><input type="password" name="pwd2" class="form-control" placeholder="패스워드 확인"></td>
+                </tr>
+                <tr>
+                  <td style="text-align: center;"><label class="col-form-label">공급자/역할</label></td>
+                  <td><input type="text" name="provider" class="form-control" id="provider"></td>
+                  <td><input type="text" name="role" class="form-control" id="role"></td>
                 </tr>
                 <tr>
                   <td style="text-align: center;"><label class="col-form-label">이메일</label></td>
