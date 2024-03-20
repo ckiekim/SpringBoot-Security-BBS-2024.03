@@ -80,7 +80,10 @@ public class FileController {
 			MultipartFile file = pair.getValue();
 			String filename = file.getOriginalFilename();
 			int idx = filename.lastIndexOf(".");
-			filename = System.currentTimeMillis() + filename.substring(idx);
+			String format = filename.substring(idx);
+			if (format.equals(".jfif"))
+				format = ".jpg";
+			filename = System.currentTimeMillis() + format;
 			String uploadPath = uploadDir + "image/" + filename;
 			try {
 				file.transferTo(new File(uploadPath));
@@ -88,6 +91,7 @@ public class FileController {
 				e.printStackTrace();
 			}
 			url = "/sbbs/file/download/image/" + filename;
+			System.out.println(url);
 		}
 		
 		String ajaxResponse = "<script>"

@@ -65,7 +65,7 @@
 						<tr th:each="board: ${boardList}">
 							<td>[[${board.bid}]]</td>
 							<td>
-								<a th:href="@{/board/detail/{x}/{y}(x=${board.bid},y=${board.uid})}">[[${board.title}]]</a>
+								<a th:href="@{/board/detail/{x}/{y}(x=${board.bid},y=${board.suid})}">[[${board.title}]]</a>
 								<span th:if="${board.replyCount ge 1}">
 									<span class="text-danger">&#91;[[${board.replyCount}]]&#93;</span>
 								</span>

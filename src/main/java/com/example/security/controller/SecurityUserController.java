@@ -105,7 +105,7 @@ public class SecurityUserController {
 		// 환영 메세지
 		log.info("Info Login: {}, {}", uid, secUser.getUname());
 		model.addAttribute("msg", secUser.getUname()+"님 환영합니다.");
-		model.addAttribute("url", "/sbbs/user/list");
+		model.addAttribute("url", "/sbbs/board/list");
 		return "common/alertMsg";
 	}
 	

@@ -42,11 +42,11 @@
 					<h3><strong>게시글 상세 조회</strong>
 						<span style="font-size:16px">
 							<a th:href="@{/board/list(p=${currentBoardPage},f=${field},q=${query})}"><i class="fa-solid fa-table-list ms-5"></i> 목록</a>
-							<span th:if="${session.sessUid eq board.uid}">	<!-- 본인만 수정/삭제 가능 -->
+							<span th:if="${session.sessSuid == board.suid}">	<!-- 본인만 수정/삭제 가능 -->
 								<a th:href="@{/board/update/{x}(x=${board.bid})}"><i class="fa-solid fa-file-pen ms-3"></i> 수정</a>
 								<a href="javascript:void" onclick="deleteBoard()"><i class="fa-solid fa-trash ms-3"></i> 삭제</a>
 							</span>
-							<span th:if="${session.sessUid ne board.uid}">	
+							<span th:if="${session.sessSuid != board.suid}">	
 								<a href="#" class="disabled-link"><i class="fa-solid fa-file-pen ms-3"></i> 수정</a>
 								<a href="#" class="disabled-link"><i class="fa-solid fa-trash ms-3"></i> 삭제</a>
 							</span>
@@ -68,14 +68,10 @@
 							<h5>[[${board.uname}]]</h5>
 							<h6>조회 [[${board.viewCount}]] &nbsp;&nbsp; 댓글 [[${board.replyCount}]]</h6>
 							<h6>
-								<span th:if="${session.sessUid eq board.uid}">	<!-- 본인은 좋아요 누르지 못함 -->
-									<a href="#">
-										<span th:if="${session.likeClicked == 1}"><i id="likeIcon" class="fa-solid fa-thumbs-up"></i></span>
-										<span th:if="${session.likeClicked == 0}"><i id="likeIcon" class="fa-regular fa-thumbs-up"></i></span>
-										[[${count}]]
-									</a>
+								<span th:if="${session.sessSuid == board.suid}">	<!-- 본인은 좋아요 누르지 못함 -->
+									<a href="#"><i id="likeIcon" class="fa-regular fa-thumbs-up"></i> [[${count}]]</a>
 								</span>
-								<span th:if="${session.sessUid ne board.uid}">
+								<span th:if="${session.sessSuid != board.suid}">
 									<a href="#" th:onclick="likeClick([[${board.bid}]])">
 										<span th:if="${session.likeClicked == 1}"><i id="likeIcon" class="fa-solid fa-thumbs-up"></i></span>
 										<span th:if="${session.likeClicked == 0}"><i id="likeIcon" class="fa-regular fa-thumbs-up"></i></span>
@@ -110,7 +106,7 @@
 					</div>
 					<form class="form-inline" action="/sbbs/board/reply" method="post">
 						<input type="hidden" name="bid" th:value="${board.bid}">
-						<input type="hidden" name="uid" th:value="${board.uid}">
+						<input type="hidden" name="suid" th:value="${board.suid}">
 						<div class="row d-flex mt-2" style="align-items: center;">
 							<div class="col-1">
 								<label class="col-form-label">댓글</label>
