@@ -36,11 +36,6 @@ public class BoardController {
 	@Value("${spring.servlet.multipart.location}") private String uploadDir;
 	private String menu = "board";
 	
-	@GetMapping("/test")
-	public String test() {
-		return "index";
-	}
-	
 	@GetMapping("/list")
 	public String list(@RequestParam(name="p", defaultValue="1") int page,
 				@RequestParam(name="f", defaultValue="title") String field,

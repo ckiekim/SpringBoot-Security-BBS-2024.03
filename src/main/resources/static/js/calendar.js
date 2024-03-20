@@ -35,7 +35,7 @@ function schedClick(sid) {
 	schedClicked = true;
 	$.ajax({
 		type: 'GET',
-		url: '/abbs/schedule/detail/' + sid,
+		url: '/sbbs/schedule/detail/' + sid,
 		success: function(jsonSched) {
 			let sched = JSON.parse(jsonSched);
       let sdate = sched.sdate.substring(0,4)+'-'+sched.sdate.substring(4,6)+'-'+sched.sdate.substring(6);
@@ -58,7 +58,7 @@ function deleteSchedule() {
 	let sid = $('#sid2').val();
 	const answer = confirm('정말로 삭제하시겠습니까?');
 	if (answer) {
-		location.href = '/abbs/schedule/delete/' + sid;
+		location.href = '/sbbs/schedule/delete/' + sid;
 	}
 }
 
