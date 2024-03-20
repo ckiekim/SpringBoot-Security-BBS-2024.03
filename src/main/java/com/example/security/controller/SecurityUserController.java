@@ -175,33 +175,45 @@ public class SecurityUserController {
 			String github, String insta, String location, String hashedPwd, String profile,
 			MultipartHttpServletRequest req, HttpSession session, Model model) {
 		String filename = null;
+		SecurityUser secUser = null;
 		int currentUserPage = (Integer) session.getAttribute("currentUserPage");
 		MultipartFile filePart = req.getFile("newProfile");
 		String sessUid = (String) session.getAttribute("sessUid");
 		String provider = (String) session.getAttribute("provider");
-		// social loginner - github, insta, location 수정 가능하게
-		if (!provider.equals("ck world") || !sessUid.equals(uid)) {
+
+		if (!sessUid.equals(uid)) {
 			model.addAttribute("msg", "수정 권한이 없습니다.");
 			model.addAttribute("url", "/sbbs/user/list/" + currentUserPage);
 			return "common/alertMsg";
 		}
-		if (pwd != null && pwd.length() > 1 && pwd.equals(pwd2))
-			hashedPwd = bCryptEncoder.encode(pwd);
-		if (filePart.getContentType().contains("image")) {
-			filename = filePart.getOriginalFilename();
-			String path = uploadDir + "profile/" + filename;
-			try {
-				filePart.transferTo(new File(path));
-			} catch (Exception e) {
-				e.printStackTrace();
+		if (provider.equals("ck world")) { 			// Local 등록 사용자
+			if (pwd != null && pwd.length() > 1 && pwd.equals(pwd2))
+				hashedPwd = bCryptEncoder.encode(pwd);
+			if (filePart.getContentType().contains("image")) {
+				// 기존 사진 지우기
+				int idx = profile.lastIndexOf("/");
+				String path = uploadDir + "profile/" + profile.substring(idx + 1);
+				File file = new File(path);
+				file.delete();
+				
+				filename = filePart.getOriginalFilename();
+				path = uploadDir + "profile/" + filename;
+				try {
+					filePart.transferTo(new File(path));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				profile = "/sbbs/file/download/profile/" + imageUtil.squareImage(uid, filename);
 			}
-			profile = "/sbbs/file/download/profile/" + imageUtil.squareImage(uid, filename);
+			secUser = new SecurityUser(suid, uid, hashedPwd, uname, email, profile, github, insta, location);
+			session.setAttribute("sessUname", uname);
+			session.setAttribute("profile", profile);
+			session.setAttribute("email", email);
+		} else {			// Social Loginner
+			secUser = securityService.findBySuid(suid);
+			secUser.setGithub(github); secUser.setInsta(insta); secUser.setLocation(location);
 		}
-		SecurityUser secUser = new SecurityUser(suid, uid, hashedPwd, uname, email, profile, github, insta, location);
 		securityService.updateSecurityUser(secUser);
-		session.setAttribute("sessUname", uname);
-		session.setAttribute("profile", profile);
-		session.setAttribute("email", email);
 		session.setAttribute("github", github);
 		session.setAttribute("insta", insta);
 		session.setAttribute("location", location);

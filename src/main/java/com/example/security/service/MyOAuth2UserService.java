@@ -1,5 +1,7 @@
 package com.example.security.service;
 
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +49,7 @@ public class MyOAuth2UserService extends DefaultOAuth2UserService {
 				log.info("구글 계정을 통해 회원가입이 되었습니다.");
 			}
 			break;
+			
 		case "github":
 			int id = oAuth2User.getAttribute("id");
 			uid = provider + "_" + id;
@@ -59,6 +62,40 @@ public class MyOAuth2UserService extends DefaultOAuth2UserService {
 				securityUserService.insertSecurityUser(securityUser);
 				securityUser = securityUserService.findByUid(uid);
 				log.info("깃허브 계정을 통해 회원가입이 되었습니다.");
+			}
+			break;
+			
+		case "naver":
+			Map<String, Object> response = (Map) oAuth2User.getAttribute("response");
+			String nid = (String) response.get("id");
+			uid = provider + "_" + nid;
+			securityUser = securityUserService.findByUid(uid);
+			if (securityUser == null) {				// 가입이 안되어있으면 가입 진행
+				email = (String) response.get("email");
+				uname = (String) response.get("nickname");
+				profile = (String) response.get("profile_image");
+				profile = (profile == null) ? "/sbbs/file/download/profile/person.svg" : profile;
+				securityUser = new SecurityUser(uid, hashedPwd, uname, email, provider, profile);
+				securityUserService.insertSecurityUser(securityUser);
+				securityUser = securityUserService.findByUid(uid);
+				log.info("네이버 계정을 통해 회원가입이 되었습니다.");
+			}
+			break;
+		
+		case "kakao":
+			long kid = (Long) oAuth2User.getAttribute("id");
+			uid = provider + "_" + kid;
+			securityUser = securityUserService.findByUid(uid);
+			if (securityUser == null) {				// 가입이 안되어있으면 가입 진행
+				Map<String, String> properties = (Map) oAuth2User.getAttribute("properties");
+				Map<String, Object> account = (Map) oAuth2User.getAttribute("kakao_account");
+				email = (String) account.get("email");
+				uname = (String) properties.get("nickname");
+				profile = (String) properties.get("profile_image");
+				securityUser = new SecurityUser(uid, hashedPwd, uname, email, provider, profile);
+				securityUserService.insertSecurityUser(securityUser);
+				securityUser = securityUserService.findByUid(uid);
+				log.info("카카오 계정을 통해 회원가입이 되었습니다.");
 			}
 			break;
 		}
