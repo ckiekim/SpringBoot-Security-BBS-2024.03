@@ -53,7 +53,11 @@
 						</tr>
 						<tr th:each="user: ${userList}">
 							<td style="text-align: center;"><img th:src="${user.profile}" class="rounded-circle" height="28"></td>
-							<td><a href="#" th:onclick="uidClick([[${user.uid}]])">[[${user.uid}]]</a></td>
+							<td>
+								<a href="#" th:onclick="uidClick([[${user.uid}]])">
+									<span th:text="${#strings.length(user.uid) > 11 ? #strings.substring(user.uid, 0, 10) + '...' : user.uid}"></span>
+								</a>
+							</td>
 							<td th:text="${user.uname}"></td>
 							<td th:text="${user.provider}"></td>
 							<td th:text="${user.email}"></td>

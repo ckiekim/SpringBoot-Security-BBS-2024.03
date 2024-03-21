@@ -5,7 +5,7 @@ import java.util.List;
 import com.example.security.entity.SecurityUser;
 
 public interface SecurityUserService {
-	public static final int COUNT_PER_PAGE = 4;
+	public static final int COUNT_PER_PAGE = 10;
 
 	SecurityUser findBySuid(int suid);
 	

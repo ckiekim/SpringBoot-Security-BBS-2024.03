@@ -21,6 +21,9 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.csrf(auth -> auth.disable())
+			.headers(config -> config			// CK Editor image upload
+				.frameOptions(optionConfig -> optionConfig.disable())
+			)
 			.authorizeHttpRequests(auth -> auth			// SpringSecurity version6 부터 람다식 사용
 				.dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
 				.requestMatchers("/user/register", "/user/login", "/oauth2/**",

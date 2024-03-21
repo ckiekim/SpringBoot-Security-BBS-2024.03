@@ -89,7 +89,7 @@ CREATE TABLE securityUser
 	regDate date DEFAULT (CURRENT_DATE),
 	role varchar(16) DEFAULT '''ROLE_USER''' NOT NULL,
 	isDeleted int DEFAULT 0,
-	profile varchar(40),
+	profile varchar(100),
 	github varchar(40),
 	insta varchar(40),
 	location varchar(20),
